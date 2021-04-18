@@ -8,7 +8,7 @@ import webbrowser
 
 headers = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"}
-url = "https://store.steampowered.com/search/results/?query&start=50&count=50&dynamic_data=&sort_by=_ASC&snr=1_7_7_2300_7&specials=1&filter=topsellers&infinite=1"
+url = "https://store.steampowered.com/search/results/?query&start=100&count=100&dynamic_data=&sort_by=_ASC&snr=1_7_7_2300_7&specials=1&filter=topsellers&infinite=1"
 jsonpath = "./steam"
 
 
@@ -41,7 +41,7 @@ def outputCSV_by_pd():
     # 得到dom
     searchSoup = bs4.BeautifulSoup(
         data['results_html'], features="html.parser")
-    # TODO 这个类型不能遍历
+    # 获取折扣，游戏名称，游戏链接
     discount_elements = searchSoup.select('.search_discount span')
     app_name = searchSoup.select('.title')
     href_elements = searchSoup.select('a')
