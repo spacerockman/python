@@ -28,9 +28,8 @@ def saveJson100(url):
         f.write(json.dumps(result, ensure_ascii=False, indent=4))
     pass
 
+
 # 下载保存JSON文件2
-
-
 def saveJson200(url):
     # 读取url地址，
     response = requests.get(url, headers=headers)
@@ -58,9 +57,8 @@ def saveJson300(url):
         f.write(json.dumps(result, ensure_ascii=False, indent=4))
     pass
 
+
 # 输出文档
-
-
 def outputCSV_by_pd():
     data1 = {}
     data2 = {}
@@ -129,7 +127,11 @@ def outputCSV_by_pd():
     steam_list.to_csv("steam.csv", index=False)
 
 
-saveJson100(url_100)
-saveJson200(url_200)
-saveJson300(url_300)
-outputCSV_by_pd()
+def main():
+    saveJson100(url_100)
+    saveJson200(url_200)
+    saveJson300(url_300)
+    outputCSV_by_pd()
+
+
+main()
