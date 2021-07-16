@@ -1,5 +1,6 @@
-import json
+import csv
 import re
+
 import requests
 
 url = "https://movie.douban.com/"
@@ -8,13 +9,19 @@ header = {
 }
 
 res = requests.get(url, headers=header)
-obj = re.compile('<ul class="">.*?<li class="title">.*?href="(?P<href>.*?)" class="">(?P<title>.*?)</a>', re.S)
-# print(res.text)
-res_json = []
+obj = re.compile(r'<ul class="">.*?<li class="title">.*?'
+                 r'href="(?P<href>.*?)" class="">(?P<title>.*?)</a>.*?'
+                 r'<span class="subject-rate">(?P<rating>.*?)</span>', re.S)
+
 films = obj.finditer(res.text)
-for i in films:
-    res_json.append(i.group("title"))
-    res_json.append(i.group("href"))
-    print(i.group("title"))
-    print(i.group("href"))
+
+with open("data.csv", mode="w", encoding="GBK") as f:
+    csvWriter = csv.writer(f)
+    csvWriter.writerow(["链接", "电影名称", "评分"])
+    for i in films:
+        dic = i.groupdict()
+        csvWriter.writerow(dic.values())
+
+print("over")
+f.close()
 res.close()
