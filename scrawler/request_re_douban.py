@@ -12,9 +12,11 @@ res = requests.get(url, headers=header)
 obj = re.compile(r'<ul class="">.*?<li class="title">.*?'
                  r'href="(?P<href>.*?)" class="">(?P<title>.*?)</a>.*?'
                  r'<span class="subject-rate">(?P<rating>.*?)</span>', re.S)
+obj2 = re.compile(r"'<a href='(?P<href>.*?)' title", re.S)
+
 
 films = obj.finditer(res.text)
-
+childUrlResults = obj2.finditer(res.text)
 with open("data.csv", mode="w", encoding="GBK") as f:
     csvWriter = csv.writer(f)
     csvWriter.writerow(["链接", "电影名称", "评分"])
