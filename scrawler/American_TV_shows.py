@@ -1,16 +1,18 @@
 import csv
 import urllib.request
 import re
+from tqdm import tqdm
 
 url = 'https://www.mjf2020.com/?s='
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) '
                   'Chrome/92.0.4515.131 Safari/537.36 '
 }
-
 sub_page_list = []
 sub_page_list_1080 = []
-sub_page_magnet_list_1080 = []
+# sub_page_magnet_list_1080 = []
+count = 0
+
 obj1 = re.compile(r'<h2 class="thumbnail">(?P<test1>.*?)'
                   r'<img src=.*?onmouseout="this.style.*? href="(?P<subUrl>.*?)>', re.S)
 
@@ -53,19 +55,19 @@ for sub_url in sub_page_list:
     sub_result = sub_response.read().decode('utf-8')
     result_1080 = sub_page_reObj.finditer(sub_result)
     for i in result_1080:
+        count += 1
         sub_page_list_1080.append(sub_url+i.group('subUrl_1080'))
 
 print('获取资源中...')
-for sub_url_1080 in sub_page_list_1080:
-
-    sub_1080_request = urllib.request.Request(sub_url_1080, headers=headers,method="GET")
+bar = tqdm(sub_page_list_1080)
+for sub_url_1080 in bar:
+    sub_1080_request = urllib.request.Request(sub_url_1080, headers=headers, method="GET")
     sub_1080_response = urllib.request.urlopen(sub_1080_request)
     sub_1080_results = sub_1080_response.read().decode('utf-8')
     result_1080_urls = sub_page_1080_reObj.finditer(sub_1080_results)
     for item in result_1080_urls:
         csvWriter.writerow(item.groupdict().values())
-        print(item.groupdict().values())
 
-print("{}{}{}".format("资源到处完成，请查看: ",show_name,".csv 文件"))
+print("{}{}{}".format("资源获取完成，请查看: ", show_name, ".csv 文件"))
 response.close()
 
