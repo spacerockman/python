@@ -27,9 +27,6 @@ for i in range(count - 2):
         if "pb" in i:
             pb_sub_dir.append(i)
 
-for i in range(len(pb_sub_dir)):
-    pass
-
 for i in range(len(all_list) - 3):
     res_path = dir_name[i] + "/" + pb_sub_dir[i]
     print("复制成功: " + res_path)
