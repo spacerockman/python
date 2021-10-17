@@ -6,4 +6,9 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+
+*.name
 *.xml
+*.iml
+# misc 
+.DS_Store
