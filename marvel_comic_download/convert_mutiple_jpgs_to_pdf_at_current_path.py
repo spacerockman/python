@@ -25,4 +25,4 @@ for i in file_list:
 for image in file_list:
     pdf.add_page()
     pdf.image(f"{dir_name}/{image}", w=190)
-    pdf.output(f"{dir_name}/{curr_directory_name}.pdf", "F")
+pdf.output(f"{dir_name}/{curr_directory_name}.pdf", "F")
