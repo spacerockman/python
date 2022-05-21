@@ -3,11 +3,8 @@ import os
 import sys
 import natsort
 
-
-# dir_name = "/Volumes/Public/Nas_Xujintao/Download/comics/Avengers_World/Avengers World #1"
-# dir_name = "/Users/xujintao/workspace/2022/marvel_comic_download/test/Avengers World #1"
 dir_name = sys.path[0]
-print(dir_name)
+curr_directory_name = dir_name.split("/")[-1]
 
 pdf = FPDF()
 pdf.set_auto_page_break(0)
@@ -28,4 +25,4 @@ for i in file_list:
 for image in file_list:
     pdf.add_page()
     pdf.image(f"{dir_name}/{image}", w=190)
-pdf.output(f"{dir_name}/test.pdf", "F")
+pdf.output(f"{dir_name}/{curr_directory_name}.pdf", "F")
